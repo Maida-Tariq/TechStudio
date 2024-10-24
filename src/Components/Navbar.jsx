@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  // State to manage the dropdown menu visibility
   const [isOpen, setIsOpen] = useState(false);
-
-  // Function to toggle the dropdown menu
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -12,13 +11,10 @@ const Navbar = () => {
   return (
     <nav className="p-4 bg-white text-[#333333]"> 
       <div className="container mx-auto flex justify-between items-center">
-        
-        {/* Logo Section */}
         <div className="text-4xl font-extrabold tracking-wide cursor-pointer ml-[3%]">
           Tech<span className="italic text-mid">Studio</span> 
         </div>
-        
-        {/* Hamburger Icon for Mobile */}
+
         <div className="md:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
             {isOpen ? (
@@ -33,55 +29,29 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Menu Links for Larger Screens */}
         <div className={`hidden md:flex space-x-8`}>
-          <a href="/" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
-            Home
-          </a>
-          <a href="/about" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
-            About Us
-          </a>
-          <a href="/services" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
-            Services
-          </a>
-          <a href="/contact" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
-            Contact Us
-          </a>
+          <Link to="/" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">Home</Link>
+          <Link to="/about" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">About Us</Link>
+          <Link to="/services" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">Services</Link>
+          <Link to="/contact" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">Contact Us</Link>
         </div>
 
-        {/* Call-to-Action Button for Larger Screens */}
         <div className="hidden md:block">
-          <a
-            href="/contact"
-            className="bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid transition duration-300 font-bold text-lg"
-          >
+          <Link to="/contact" className="bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid transition duration-300 font-bold text-lg">
             Let's Start a Project
-          </a>
+          </Link>
         </div>
       </div>
 
-      {/* Mobile Menu Links */}
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-white shadow-md`}>
-        <a href="/" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">
-          Home
-        </a>
-        <a href="/about" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">
-          About Us
-        </a>
-        <a href="/services" className="block text-[#333333] hover:text-midmid p-4 border-b border-gray-300">
-          Services
-        </a>
-        <a href="/contact" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">
-          Contact Us
-        </a>
+        <Link to="/" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">Home</Link>
+        <Link to="/about" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">About Us</Link>
+        <Link to="/services" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">Services</Link>
+        <Link to="/contact" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">Contact Us</Link>
         
-        {/* Call-to-Action Button for Mobile */}
-        <a
-          href="/contact"
-          className="block text-center bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid transition duration-300 font-bold text-lg my-4 mx-auto"
-        >
+        <Link to="/contact" className="block text-center bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid transition duration-300 font-bold text-lg my-4 mx-auto">
           Let's Start a Project
-        </a>
+        </Link>
       </div>
     </nav>
   );
