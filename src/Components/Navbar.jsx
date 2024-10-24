@@ -15,7 +15,7 @@ const Navbar = () => {
         
         {/* Logo Section */}
         <div className="text-4xl font-extrabold tracking-wide cursor-pointer ml-[3%]">
-          Tech<span className="italic text-[#3E4E88]">Studio</span> 
+          Tech<span className="italic text-mid">Studio</span> 
         </div>
         
         {/* Hamburger Icon for Mobile */}
@@ -35,16 +35,16 @@ const Navbar = () => {
 
         {/* Menu Links for Larger Screens */}
         <div className={`hidden md:flex space-x-8`}>
-          <a href="/" className="hover:text-[#3E4E88] hover:underline underline-offset-4 transition duration-300 font-semibold">
+          <a href="/" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
             Home
           </a>
-          <a href="/about" className="hover:text-[#3E4E88] hover:underline underline-offset-4 transition duration-300 font-semibold">
+          <a href="/about" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
             About Us
           </a>
-          <a href="/services" className="hover:text-[#3E4E88] hover:underline underline-offset-4 transition duration-300 font-semibold">
+          <a href="/services" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
             Services
           </a>
-          <a href="/contact" className="hover:text-[#3E4E88] hover:underline underline-offset-4 transition duration-300 font-semibold">
+          <a href="/contact" className="hover:text-mid hover:underline underline-offset-4 transition duration-300 font-semibold">
             Contact Us
           </a>
         </div>
@@ -53,7 +53,7 @@ const Navbar = () => {
         <div className="hidden md:block">
           <a
             href="/contact"
-            className="bg-[#3E4E88] text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-[#3E4E88] transition duration-300 font-bold text-lg"
+            className="bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid transition duration-300 font-bold text-lg"
           >
             Let's Start a Project
           </a>
@@ -62,23 +62,23 @@ const Navbar = () => {
 
       {/* Mobile Menu Links */}
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-white shadow-md`}>
-        <a href="/" className="block text-[#333333] hover:text-[#3E4E88] p-4 border-b border-gray-300">
+        <a href="/" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">
           Home
         </a>
-        <a href="/about" className="block text-[#333333] hover:text-[#3E4E88] p-4 border-b border-gray-300">
+        <a href="/about" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">
           About Us
         </a>
-        <a href="/services" className="block text-[#333333] hover:text-[#3E4E88] p-4 border-b border-gray-300">
+        <a href="/services" className="block text-[#333333] hover:text-midmid p-4 border-b border-gray-300">
           Services
         </a>
-        <a href="/contact" className="block text-[#333333] hover:text-[#3E4E88] p-4 border-b border-gray-300">
+        <a href="/contact" className="block text-[#333333] hover:text-mid p-4 border-b border-gray-300">
           Contact Us
         </a>
         
         {/* Call-to-Action Button for Mobile */}
         <a
           href="/contact"
-          className="block text-center bg-[#3E4E88] text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-[#3E4E88] transition duration-300 font-bold text-lg my-4 mx-auto"
+          className="block text-center bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid transition duration-300 font-bold text-lg my-4 mx-auto"
         >
           Let's Start a Project
         </a>

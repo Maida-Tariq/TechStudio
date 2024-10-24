@@ -22,8 +22,8 @@ const ContactSection = () => {
 
                 <form className="bg-white shadow-xl rounded-lg p-8 border border-gray-200 relative overflow-hidden">
                     {/* Background shapes */}
-                    <div className="absolute top-0 left-0 w-32 h-32 bg-[#3E4E88] opacity-20 rounded-full transform -translate-x-20 -translate-y-20"></div>
-                    <div className="absolute bottom-0 right-0 w-32 h-32 bg-[#3E4E88] opacity-20 rounded-full transform translate-x-20 translate-y-20"></div>
+                    <div className="absolute top-0 left-0 w-32 h-32 bg-mid opacity-20 rounded-full transform -translate-x-20 -translate-y-20"></div>
+                    <div className="absolute bottom-0 right-0 w-32 h-32 bg-mid opacity-20 rounded-full transform translate-x-20 translate-y-20"></div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <input
@@ -64,12 +64,12 @@ const ContactSection = () => {
                             placeholder="Describe Your Project"
                             rows="4"
                             required
-                            className={`border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[#3E4E88] transition duration-200 w-full`}
+                            className={`border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-mid transition duration-200 w-full`}
                         />
                     </div>
                     <button
                         type="submit"
-                        className="bg-[#3E4E88] text-white font-semibold py-2 px-6 rounded-lg transition-transform duration-300 hover:scale-105 w-full"
+                        className="bg-mid text-white font-semibold py-2 px-6 rounded-lg transition-transform duration-300 hover:scale-105 w-full"
                     >
                         Send Inquiry
                     </button>

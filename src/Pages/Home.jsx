@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import Hero from '../Components/Hero'
 import About from '../Components/About'
-import Services from '../Components/Services'
+import Service from '../Components/Service'
 import Build from '../Components/build'
 import Choice from '../Components/Choice'
 import Faq from '../Components/FAQ'
@@ -15,7 +15,7 @@ const Home = () => {
         <Navbar />
         <Hero />
         <About />
-        <Services />
+        <Service />
         <Build />
         <Choice />
         <Faq />

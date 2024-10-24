@@ -6,9 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'cormorant': ['Cormorant Garamond', 'serif'],
+      },
       colors: {
-        'light-gray': '#D3D3D3', 
-        'dark-teal': '#3E4E88',
+        'mid': '#087EBD', 
+        'gry': '#F1F1F2',
       },
     },
   },

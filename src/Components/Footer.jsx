@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-white text-white">
       <div className="container mx-auto">
         {/* Glassmorphism Box */}
-        <div className="bg-[#3E4E88] bg-opacity-80 backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg">
+        <div className="bg-mid p-4">
           {/* Header Section */}
           <div className="text-center mb-6">
             <h3 className="text-2xl font-bold mb-2">Stay Connected</h3>
