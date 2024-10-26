@@ -9,7 +9,7 @@ const Services = () => {
       <div className="container mx-auto px-4">
         {/* Heading Section */}
         <div className="flex flex-col md:flex-row items-center mb-10 w-full md:w-[80%] mx-auto"> {/* Use w-full for smaller screens */}
-          <h2 className="text-[#3E4E88] text-4xl md:text-5xl font-bold mb-4 text-center md:text-left md:mr-4"> 
+          <h2 className="text-mid text-4xl md:text-5xl font-bold mb-4 text-center md:text-left md:mr-4"> 
             Our Services
           </h2>
           <p className="text-gray-700 text-justify md:ml-4 text-sm md:text-base"> {/* Added responsive text size */}

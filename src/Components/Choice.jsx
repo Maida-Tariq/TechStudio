@@ -14,19 +14,19 @@ const TechStudioCards = () => {
             {/* Cards Section - Horizontal Slider for Small Screens */}
             <div className="flex md:justify-center gap-4 overflow-x-scroll md:overflow-visible md:gap-8 scrollbar-hide">
                 {/* Card 1 */}
-                <div className="bg-[#3E4E88] text-white rounded-lg shadow-lg flex flex-col items-center justify-center min-w-[250px] md:w-50 h-40 p-4 transition-transform duration-300 hover:scale-105">
+                <div className="bg-mid text-white rounded-lg shadow-lg flex flex-col items-center justify-center min-w-[250px] md:w-50 h-40 p-4 transition-transform duration-300 hover:scale-105">
                     <h3 className="text-lg md:text-xl font-semibold">Innovative Visionaries</h3>
                     <p className="text-center text-sm md:text-base">Harnessing cutting-edge technology to design transformative solutions.</p>
                 </div>
 
                 {/* Card 2 */}
-                <div className="bg-[#3E4E88] text-white rounded-lg shadow-lg flex flex-col items-center justify-center min-w-[250px] md:w-50 h-40 p-4 transition-transform duration-300 hover:scale-105">
+                <div className="bg-mid text-white rounded-lg shadow-lg flex flex-col items-center justify-center min-w-[250px] md:w-50 h-40 p-4 transition-transform duration-300 hover:scale-105">
                     <h3 className="text-lg md:text-xl font-semibold">Bespoke Solutions</h3>
                     <p className="text-center text-sm md:text-base">Offering tailored services that fit your business objectives seamlessly.</p>
                 </div>
 
                 {/* Card 3 */}
-                <div className="bg-[#3E4E88] text-white rounded-lg shadow-lg flex flex-col items-center justify-center min-w-[250px] md:w-50 h-40 p-4 transition-transform duration-300 hover:scale-105">
+                <div className="bg-mid text-white rounded-lg shadow-lg flex flex-col items-center justify-center min-w-[250px] md:w-50 h-40 p-4 transition-transform duration-300 hover:scale-105">
                     <h3 className="text-lg md:text-xl font-semibold">Agile Methodologies</h3>
                     <p className="text-center text-sm md:text-base">Employing agile techniques to ensure rapid progress and adaptability.</p>
                 </div>

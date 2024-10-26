@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:block">
-          <Link to="/contact" className="bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid transition duration-300 font-bold text-lg">
+          <Link to="/contact" className="bg-mid text-white px-8 py-3 rounded-full hover:bg-[#fff] hover:text-mid hover:border-2 hover:border-mid transition duration-300 font-bold text-lg">
             Let's Start a Project
           </Link>
         </div>
