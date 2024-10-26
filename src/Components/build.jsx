@@ -5,7 +5,7 @@ const BuildSection = () => {
   return (
     <section className="py-16 bg-white" data-aos="zoom-out" data-aos-duration="1000"> 
       <div className="container mx-auto px-4">
-        <div className="bg-[#6070a8] text-white flex flex-col lg:flex-row items-center p-8 rounded-lg shadow-lg mx-4 lg:mx-32">
+        <div className="bg-mid text-white flex flex-col lg:flex-row items-center p-8 rounded-lg shadow-lg mx-4 lg:mx-32">
           {/* Text Content */}
           <div className="flex-1 space-y-6">
             <h2 className="text-4xl font-bold">Let’s Build Something Incredible</h2>
