@@ -1,7 +1,15 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleLinkClick = (path) => {
+    navigate(path);
+    window.scrollTo(0, 0); // Scrolls to the top of the page
+  };
+
   return (
     <footer className="bg-white text-white">
       <div className="container mx-auto">
@@ -16,21 +24,27 @@ const Footer = () => {
           {/* Social Media Section */}
           <div className="flex justify-center mb-6 space-x-6">
             <a
-              href="#"
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Facebook"
               className="text-3xl hover:text-gray-300 transition duration-300"
             >
               <FaFacebook />
             </a>
             <a
-              href="#"
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
               className="text-3xl hover:text-gray-300 transition duration-300"
             >
               <FaLinkedin />
             </a>
             <a
-              href="#"
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Twitter"
               className="text-3xl hover:text-gray-300 transition duration-300"
             >
@@ -42,18 +56,18 @@ const Footer = () => {
           <div className="text-center mb-6">
             <h3 className="text-xl font-bold mb-2">Quick Links</h3>
             <div className="flex justify-center space-x-4">
-              <a href="#" className="hover:text-gray-300 transition duration-300">
+              <button onClick={() => handleLinkClick('/')} className="hover:text-gray-300 transition duration-300">
                 Home
-              </a>
-              <a href="#" className="hover:text-gray-300 transition duration-300">
+              </button>
+              <button onClick={() => handleLinkClick('/about')} className="hover:text-gray-300 transition duration-300">
                 About Us
-              </a>
-              <a href="#" className="hover:text-gray-300 transition duration-300">
+              </button>
+              <button onClick={() => handleLinkClick('/services')} className="hover:text-gray-300 transition duration-300">
                 Services
-              </a>
-              <a href="#" className="hover:text-gray-300 transition duration-300">
+              </button>
+              <button onClick={() => handleLinkClick('/contact')} className="hover:text-gray-300 transition duration-300">
                 Contact Us
-              </a>
+              </button>
             </div>
           </div>
 
