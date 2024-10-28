@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar'
 import Serviceintro from '../Components/Sintro'
 import Scircular from '../Components/Scircular'
 import Goal from '../Components/Goal'
+import Plan from '../Components/plan'
 import Footer from '../Components/Footer'
 
 const Services = () => {
@@ -11,6 +12,7 @@ const Services = () => {
         <Navbar />
         <Serviceintro />
         <Scircular />
+        <Plan />
         <Goal />
         <Footer />
     </div>
