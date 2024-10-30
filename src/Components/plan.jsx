@@ -1,66 +1,122 @@
 import React, { useState } from 'react';
 
 const plans = [
-  { title: 'Basic', price: '$20/month', features: ['Responsive Website', 'Basic SEO', 'Contact Form'] },
-  { title: 'Standard', price: '$50/month', features: ['Custom Domain', 'Advanced SEO', 'E-commerce Integration'] },
-  { title: 'Premium', price: '$100/month', features: ['Full Website Design', 'Priority Support', 'Marketing & SEO'] },
+  { title: 'Basic', price: '200', features: ['Responsive Website', 'Basic SEO', 'Contact Form', 'Email Support'], tagColor: 'bg-gray-500' },
+  { title: 'Standard', price: '500', features: ['E-commerce Integration', 'SEO Optimization', 'Custom Forms', 'Priority Support'], tagColor: 'bg-mid bg-500' },
+  { title: 'Premium', price: '1000', features: ['Full Stack Development', 'Advanced SEO', 'Custom Dashboard', '24/7 Premium Support'], tagColor: 'bg-indigo-500' },
 ];
 
 const PricingPlans = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedMethod, setSelectedMethod] = useState('Card');
+  const [email, setEmail] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvc, setCvc] = useState('');
+  const [country, setCountry] = useState('');
+  const [error, setError] = useState('');
+
+  const openForm = (planTitle) => setSelectedPlan(planTitle);
+  const closeForm = () => {
+    setSelectedPlan(null);
+    setError('');
+  };
+
+  const validateForm = () => {
+    if (!email || !cardNumber || !expiryDate || !cvc || !country) {
+      setError('Please fill in all fields.');
+      return false;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError('Invalid email format.');
+      return false;
+    }
+    if (!/^\d{16}$/.test(cardNumber)) {
+      setError('Card number must be 16 digits.');
+      return false;
+    }
+    if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+      setError('Expiry date format should be MM/YY.');
+      return false;
+    }
+    if (!/^\d{3}$/.test(cvc)) {
+      setError('CVC must be 3 digits.');
+      return false;
+    }
+    return true;
+  };
+
+  const handlePurchase = () => {
+    if (validateForm()) {
+      alert(`Purchase complete for the ${selectedPlan} plan using ${selectedMethod}`);
+      closeForm();
+    }
+  };
 
   return (
-    <div className="bg-gray-100 py-12 px-4">
-      <h2 className="text-center text-3xl font-bold mb-8 text-mid">Our Web Development Plans</h2>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl mx-auto">
+    <div className="relative min-h-screen bg-gradient-to-r from-mid via-transparnt to-purple-100 py-16 px-4">
+      <div className="text-center text-white">
+        <h2 className="text-4xl font-bold mb-2">Our Pricing & Plans</h2>
+        <p className="text-lg mb-12">Choose the best plan that suits your business needs</p>
+      </div>
+
+      <div className="flex justify-center space-x-6 max-w-5xl mx-auto">
         {plans.map((plan, index) => (
-          <div key={index} className="w-full max-w-xs mx-auto h-auto rounded-lg overflow-hidden shadow-lg bg-white p-6">
-            <h3 className="text-xl font-semibold text-black mb-2">{plan.title}</h3>
-            <p className="text-3xl font-bold mb-4 text-black">{plan.price}</p>
-            <ul className="mb-4">
+          <div key={index} className="relative w-64 rounded-xl overflow-hidden shadow-lg bg-white p-6 transform hover:scale-105 transition-transform">
+            <div className={`absolute top-0 left-0 px-4 py-1 text-white text-xs font-bold ${plan.tagColor} rounded-br-xl`}>
+              {plan.title}
+            </div>
+            <h3 className="text-2xl font-semibold text-gray-800 text-center mt-8">${plan.price}<span className="text-sm text-gray-600">/month</span></h3>
+            <ul className="text-gray-600 my-6 space-y-3">
               {plan.features.map((feature, i) => (
-                <li key={i} className="text-black text-sm mb-1">{feature}</li>
+                <li key={i} className="flex items-center space-x-2">
+                  <span className="text-green-500">✓</span>
+                  <span>{feature}</span>
+                </li>
               ))}
             </ul>
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-mid hover:bg-mid-dark text-white font-bold py-2 w-full rounded"
-            >
+            <button onClick={() => openForm(plan.title)} className="w-full py-2 bg-gradient-to-r from-indigo-500 to-mid to-500 text-white font-semibold rounded">
               Buy Now
             </button>
           </div>
         ))}
       </div>
 
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-8 w-96">
-            <h2 className="text-2xl font-semibold mb-4">Complete Your Purchase</h2>
-            <form className="space-y-4">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="w-full px-4 py-2 border rounded-lg"
-              />
-              <div className="space-y-2">
-                <label className="block font-medium">Card Information</label>
-                <input type="text" placeholder="Card Number" className="w-full px-4 py-2 border rounded-lg" />
-                <div className="flex space-x-2">
-                  <input type="text" placeholder="MM/YY" className="w-1/2 px-4 py-2 border rounded-lg" />
-                  <input type="text" placeholder="CVC" className="w-1/2 px-4 py-2 border rounded-lg" />
-                </div>
+      {selectedPlan && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+            <button onClick={closeForm} className="absolute top-2 right-2 text-gray-400 hover:text-gray-600">✕</button>
+            
+            {/* Header Section */}
+            <div className="bg-mid bg-500 p-4 rounded-t-lg text-white text-center">
+              <h2 className="text-lg font-semibold">Subscribe to {selectedPlan} Plan</h2>
+              <p className="text-2xl font-bold">HK$ {selectedPlan === 'Basic' ? '200' : selectedPlan === 'Standard' ? '500' : '1000'}</p>
+              <p className="text-sm">Total payable today</p>
+            </div>
+            
+            {/* Form Fields */}
+            <div className="mt-4">
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-mid focus:ring-500" />
+              
+              <div className="flex space-x-2 mb-4">
+                {['Card', 'Afterpay', 'Klarna', 'Affirm'].map((method) => (
+                  <button key={method} onClick={() => setSelectedMethod(method)} className={`flex-1 py-2 ${selectedMethod === method ? 'border-b-2 border-mid border-500 text-mid text-500 font-semibold' : 'text-gray-500'}`}>
+                    {method}
+                  </button>
+                ))}
               </div>
-              <input type="text" placeholder="Country" className="w-full px-4 py-2 border rounded-lg" />
-              <button type="submit" className="w-full py-2 mt-4 bg-mid hover:bg-mid-dark text-white rounded-lg">
-                Done
-              </button>
-            </form>
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-            >
-              ×
-            </button>
+              
+              <input type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Card Number" className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-mid focus:ring-500" />
+              <div className="flex space-x-2 mb-4">
+                <input type="text" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="MM/YY" className="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-mid focus:ring-500" />
+                <input type="text" value={cvc} onChange={(e) => setCvc(e.target.value)} placeholder="CVC" className="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-mid focus:ring-500" />
+              </div>
+              <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Country" className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-mid focus:ring-500" />
+              
+              {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+              
+              <button onClick={handlePurchase} className="w-full bg-mid bg-500 text-white font-bold py-3 rounded hover:bg-indigo-600">Complete Purchase</button>
+            </div>
           </div>
         </div>
       )}
