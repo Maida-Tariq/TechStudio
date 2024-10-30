@@ -1,5 +1,3 @@
-// src/components/ContactSection.js
-
 import React, { useState } from 'react';
 
 const ContactSection = () => {
@@ -20,7 +18,7 @@ const ContactSection = () => {
 
     const validateForm = () => {
         let errors = {};
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // Email format validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
         const phonePattern = /^[0-9]*$/;
 
         if (!formValues.name) errors.name = 'Name is required.';
@@ -42,7 +40,6 @@ const ContactSection = () => {
         e.preventDefault();
         if (validateForm()) {
             setIsSubmitted(true);
-            // Handle form submission, e.g., send formValues to a server
             console.log('Form submitted:', formValues);
         }
     };

@@ -8,7 +8,7 @@ const AboutSection = () => {
       data-aos="fade-left"
       data-aos-duration="2000"
     >
-      {/* Adjusted width to a smaller max-w */}
+    
       <div className="max-w-4xl mx-auto w-[90%] p-4">
         <div className="flex flex-col lg:flex-row items-center justify-center">
           {/* Left Side: Cards */}

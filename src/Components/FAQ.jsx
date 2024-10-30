@@ -1,5 +1,3 @@
-// src/components/FAQSection.js
-
 import React, { useState } from 'react';
 
 const FAQSection = () => {

@@ -7,13 +7,12 @@ const Footer = () => {
 
   const handleLinkClick = (path) => {
     navigate(path);
-    window.scrollTo(0, 0); // Scrolls to the top of the page
+    window.scrollTo(0, 0);
   };
 
   return (
     <footer className="bg-white text-white">
       <div className="container mx-auto">
-        {/* Glassmorphism Box */}
         <div className="bg-mid p-4">
           {/* Header Section */}
           <div className="text-center mb-6">
@@ -71,10 +70,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Divider */}
           <div className="border-t border-gray-300 my-6 opacity-20" />
 
-          {/* Footer Copyright Section */}
           <div className="text-center mt-4">
             <p className="text-sm">
               © {new Date().getFullYear()} WebStudio. All Rights Reserved.

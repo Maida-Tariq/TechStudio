@@ -28,16 +28,14 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Circular Button with Arrow on the Right */}
         <div className="flex items-center lg:ml-20 mb-0 lg:mt-8" style={{ marginTop: '100px' }}>
           <div className="relative">
             <a
-              href="https://wa.me/923086183836" // Link to your WhatsApp number
+              href="https://wa.me/923086183836" 
               className="hidden sm:flex items-center justify-center w-[200px] h-[200px] bg-[white] text-mid border-2 border-mid rounded-full shadow-md hover:bg-mid transition duration-300 hover:text-[white]"
             >
               <span className="text-base font-bold text-center">Let's discuss your project</span>
             </a>
-            {/* Arrow pointing from the button */}
             <div className="hidden sm:absolute sm:left-[150px] sm:top-1/2 sm:transform sm:-translate-y-1/2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

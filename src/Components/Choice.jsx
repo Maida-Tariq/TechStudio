@@ -11,7 +11,7 @@ const TechStudioCards = () => {
                 </p>
             </section>
 
-            {/* Cards Section - Horizontal Slider for Small Screens */}
+            {/* Cards Section */}
             <div className="flex md:justify-center gap-4 overflow-x-scroll md:overflow-visible md:gap-8 scrollbar-hide">
                 {/* Card 1 */}
                 <div className="bg-mid text-white rounded-lg shadow-lg flex flex-col items-center justify-center min-w-[250px] md:w-50 h-40 p-4 transition-transform duration-300 hover:scale-105">

@@ -20,7 +20,6 @@ const AboutUs = () => {
           </div>
         </header>
 
-        {/* Main Container */}
         <div className="container mx-auto p-6">
           <About />
           

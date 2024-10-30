@@ -1,5 +1,5 @@
 import React from "react";
-import BuildImage from "../assets/build.png"; // Import your image here
+import BuildImage from "../assets/build.png"; 
 
 const BuildSection = () => {
   return (
@@ -11,7 +11,7 @@ const BuildSection = () => {
             <h2 className="text-4xl font-bold">Let’s Build Something Incredible</h2>
             <p className="text-lg text-justify">
               Industries are transforming faster than lightspeed. And so are the technology principles. 
-              With O16 Labs, your brand to knock out all other competitors. 
+              With TechStuio, your brand to knock out all other competitors. 
               Let’s join hands and build the next-best and groundbreaking project unlike anything ever.
             </p>
             {/* Button */}
@@ -24,9 +24,9 @@ const BuildSection = () => {
           {/* Image */}
           <div className="flex-1 relative mt-8 lg:mt-0 lg:ml-2">
             <img
-              src={BuildImage} // Use the imported image here
+              src={BuildImage} 
               alt="Build Something Incredible"
-              className="hidden lg:block w-full h-[350px] object-cover rounded-lg" // Hide on small screens
+              className="hidden lg:block w-full h-[350px] object-cover rounded-lg" 
             />
           </div>
         </div>
