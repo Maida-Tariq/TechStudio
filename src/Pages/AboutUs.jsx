@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import Team from '../Components/team'
 import About from '../Components/About'
 
 const AboutUs = () => {
@@ -35,6 +36,8 @@ const AboutUs = () => {
               ))}
             </div>
           </section>
+
+          <Team />
 
           {/* Contact Section */}
           <section className="bg-mid text-white rounded-lg p-8 mb-8">
