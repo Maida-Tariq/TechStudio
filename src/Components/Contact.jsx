@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const countryList = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", 
@@ -70,11 +71,23 @@ const ContactSection = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (validateForm()) {
       setIsSubmitted(true);
       console.log('Form submitted:', formValues);
+    }
+    try {
+      const response = await axios.post("http://localhost:4040/api/v1/contact/send", {
+        name: formValues.name,
+        email: formValues.email,
+        phone: formValues.phone,
+        country: formValues.country,
+        projectDescription: formValues.projectDescription, 
+      });
+      console.log('Form submitted:', response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
   };
 
