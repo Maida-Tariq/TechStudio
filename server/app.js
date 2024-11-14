@@ -1,8 +1,10 @@
 import express from "express";
 import contactRouter from "./router/contactRouter.js";
+import paymentRouter from "./router/paymentRouter.js";
 import dbConnection from "./database/dbConnection.js"
 import { errorMiddleware } from "./middleware/error.js";
 import { config } from "dotenv";
+
 import cors from "cors";
 const app = express()
 
@@ -19,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/contact", contactRouter);
-
+app.use("/api/v1/payment", paymentRouter);
 
 dbConnection();
 app.use(errorMiddleware);

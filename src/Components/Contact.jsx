@@ -100,7 +100,7 @@ const ContactSection = () => {
           Let’s Make Something Awesome Together!
         </h2>
 
-        <form className="bg-white shadow-xl rounded-lg p-8 border border-gray-200 relative overflow-hidden" onSubmit={handleSubmit}>
+        <form  className="bg-white shadow-xl rounded-lg p-8 border border-gray-200 relative overflow-hidden" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <input
               type="text"

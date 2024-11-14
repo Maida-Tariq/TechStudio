@@ -1,4 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+
 
 const plans = [
   { title: 'Basic', price: 200, features: ['Responsive Website', 'Basic SEO', 'Contact Form', 'Email Support'], tagColor: 'bg-gray-500' },
@@ -8,23 +12,41 @@ const plans = [
 
 // Map of currency symbols by country code
 const currencyMap = {
-  'DE': '€',  // Germany - Euro
-  'GB': '£',  // UK - British Pound
-  'US': '$',  // USA - Dollar
-  'PK': '₨',  // Pakistan - Rupee
+    "$": "usd",
+    "€": "eur",
+    "₹": "inr",
+    "£": "gbp",
+    "¥": "jpy",
+    "₣": "chf",
+    "₱": "php",
 };
 
 const PricingPlans = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState('Card');
   const [email, setEmail] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvc, setCvc] = useState('');
   const [country, setCountry] = useState('');
   const [error, setError] = useState('');
   const [currency, setCurrency] = useState('$');
   const [conversionRate, setConversionRate] = useState(1);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const openForm = (planTitle) => {
+    setSelectedPlan(planTitle);
+    setPaymentSuccess(false); // Reset payment success state
+  };
+
+  const closeForm = () => {
+    setSelectedPlan(null);
+    setEmail('');
+    setCountry('');
+    setError('');
+    setPaymentSuccess(false);
+  };
 
   useEffect(() => {
     const detectCountryAndCurrency = async () => {
@@ -32,9 +54,10 @@ const PricingPlans = () => {
         // Detect country
         const locationResponse = await fetch('https://ipinfo.io/json?token=YOUR_API_KEY');
         const locationData = await locationResponse.json();
+        
         const userCountry = locationData.country;
         setCountry(userCountry);
-        setCurrency(currencyMap[userCountry] || '$');
+        setCurrency(currencyMap[userCountry] || 'USD');
 
         // Fetch exchange rate
         const exchangeRateResponse = await fetch(`https://open.er-api.com/v6/latest/USD`);
@@ -47,20 +70,11 @@ const PricingPlans = () => {
     };
     detectCountryAndCurrency();
   }, []);
-
-  // Function to calculate price based on conversion rate
   const getPriceInLocalCurrency = (priceInUSD) => {
     return (priceInUSD * conversionRate).toFixed(2); // Round to 2 decimal places
   };
-
-  const openForm = (planTitle) => setSelectedPlan(planTitle);
-  const closeForm = () => {
-    setSelectedPlan(null);
-    setError('');
-  };
-
   const validateForm = () => {
-    if (!email || !cardNumber || !expiryDate || !cvc || !country) {
+    if (!email || !country) {
       setError('Please fill in all fields.');
       return false;
     }
@@ -68,26 +82,89 @@ const PricingPlans = () => {
       setError('Invalid email format.');
       return false;
     }
-    if (!/^\d{16}$/.test(cardNumber)) {
-      setError('Card number must be 16 digits.');
-      return false;
-    }
-    if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
-      setError('Expiry date format should be MM/YY.');
-      return false;
-    }
-    if (!/^\d{3}$/.test(cvc)) {
-      setError('CVC must be 3 digits.');
-      return false;
-    }
     return true;
   };
 
-  const handlePurchase = () => {
-    if (validateForm()) {
-      alert(`Purchase complete for the ${selectedPlan} plan using ${selectedMethod}`);
-      closeForm();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!stripe || !elements) return;
+
+    if (!validateForm()) return;
+
+    setIsProcessing(true);
+    setError('');
+
+    const cardElement = elements.getElement(CardElement);
+
+    if (!cardElement) {
+      setError('Card element not found.');
+      setIsProcessing(false);
+      return;
     }
+
+    if (selectedMethod === 'Card') {
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+        billing_details: {
+          email,
+          address: {
+            country,
+          },
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+        setIsProcessing(false);
+        return;
+      }
+
+      const selectedPlanDetails = plans.find(plan => plan.title === selectedPlan);
+      console.log(selectedPlanDetails);
+      
+      console.log('Request Payload:', {
+        paymentMethodId: paymentMethod.id,
+        email,
+        planTitle: selectedPlan,
+        amount: selectedPlanDetails.price * 100, // in cents
+        currency: country === 'PK' ? 'PKR' : currencyMap[country],
+      });
+      try {
+        const response = await fetch('http://localhost:4040/api/v1/payment/process-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            paymentMethodId: paymentMethod.id,
+            email,
+            planTitle: selectedPlan,
+            amount: selectedPlanDetails.price * 100, // Convert to cents
+            currency: currency === '₨' ? 'PKR' : currency,
+          }),
+        });
+        console.log('Response Status:', response.status);
+        if (!response.ok) {
+        const errorText = await response.text();
+        console.log('Error Response Text:', errorText);
+        setError('An error occurred while processing your payment.');
+        setIsProcessing(false);
+        return;
+        }
+        const result = await response.json();
+        if (result.error) {
+          setError(result.error);
+        } else {
+          setPaymentSuccess(true);
+        }
+      } catch (err) {
+        setError('An error occurred while processing your payment.');
+      }
+    } else {
+      setError('Selected payment method is not implemented yet.');
+    }
+    setIsProcessing(false);
   };
 
   return (
@@ -132,35 +209,57 @@ const PricingPlans = () => {
               <p className="text-sm">Total payable today</p>
             </div>
 
-            <div className="mt-4">
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <form onSubmit={handleSubmit} className="mt-4">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email address"
+                className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+
               
-              <div className="flex space-x-2 mb-4">
-                {['Card', 'Afterpay', 'Klarna', 'Affirm'].map((method) => (
-                  <button key={method} onClick={() => setSelectedMethod(method)} className={`flex-1 py-2 ${selectedMethod === method ? 'border-b-2 border-indigo-500 text-indigo-500 font-semibold' : 'text-gray-500'}`}>
-                    {method}
-                  </button>
-                ))}
+
+  <div className="flex flex-col space-y-4">
+    <div className="flex flex-col">
+      <label htmlFor="country" className="text-sm font-medium text-gray-700 mb-2">Country</label>
+      <select
+        id="country"
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
+        className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
+      >
+        <option value="US">USA</option>
+        <option value="DE">Germany</option>
+        <option value="GB">UK</option>
+        <option value="PK">Pakistan</option>
+      </select>
+    </div>
+  </div>
+
+              <div className="my-4">
+              <label className="block text-sm font-medium text-gray-700">Card Details</label>
+              <div className="p-4 border border-gray-300 rounded-lg mt-2">
+                <CardElement />
+                </div>
               </div>
-              
-              <input type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Card Number" className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-              <div className="flex space-x-2 mb-4">
-                <input type="text" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="MM/YY" className="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                <input type="text" value={cvc} onChange={(e) => setCvc(e.target.value)} placeholder="CVC" className="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-              </div>
-              <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Country" className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-              
-              {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-              
-              <button onClick={handlePurchase} className="w-full bg-indigo-500 text-white font-semibold py-2 rounded hover:bg-indigo-600">
-                Purchase
+
+              <button
+                type="submit"
+                disabled={isProcessing || paymentSuccess}
+                className={`w-full py-2 text-white rounded bg-indigo-500 ${isProcessing && 'bg-indigo-300'} ${paymentSuccess && 'bg-green-500'}`}
+              >
+                {paymentSuccess ? 'Payment Successful' : isProcessing ? 'Processing...' : 'Pay Now'}
               </button>
-            </div>
+
+              {error && <div className="mt-4 text-red-500 text-center">{error}</div>}
+            </form>
           </div>
         </div>
       )}
     </div>
   );
 };
+
 
 export default PricingPlans;
