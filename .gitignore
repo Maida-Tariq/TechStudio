@@ -1,3 +1,6 @@
+# Ignore the entire config folder
+config/
+
 # Logs
 logs
 *.log
@@ -22,9 +25,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Ignore config.env
-config/config.env
 
 # Additional ignored files
 node_modules/
